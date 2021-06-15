@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      containers:
+        - name: react-app
+          image: nhannt1905/react-app
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-app-srv
+spec:
+  selector:
+    app: react-app
+  ports:
+    - name: react-app-srv
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+
